@@ -292,12 +292,11 @@ static NSString *const statusKeyPath = @"status";
 }
 
 - (void)setRepeat:(BOOL)repeat {
-  _repeat = repeat;
-  if (repeat) {
-    [self setRepeatEnabled];
-  } else {
+    _repeat = repeat;
     [self setRepeatDisabled];
-  }
+    if (repeat) {
+        [self setRepeatEnabled];
+    }
 }
 
 #pragma mark - React View Management
