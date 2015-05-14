@@ -328,6 +328,8 @@ static NSString *const statusKeyPath = @"status";
 
   _eventDispatcher = nil;
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super removeFromSuperview];
 }
 
 @end
