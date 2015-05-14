@@ -38,6 +38,7 @@ static NSString *const statusKeyPath = @"status";
   float _rate;
   BOOL _muted;
   BOOL _paused;
+  BOOL _repeat;
 }
 
 - (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher {
@@ -271,6 +272,7 @@ static NSString *const statusKeyPath = @"status";
 
   [_player setRate:_rate];
   [self setPaused:_paused];
+  [self setRepeat:_repeat];
 }
 
 - (void)setRepeatEnabled {
@@ -285,6 +287,7 @@ static NSString *const statusKeyPath = @"status";
 }
 
 - (void)setRepeat:(BOOL)repeat {
+  _repeat = repeat;
   if (repeat) {
     [self setRepeatEnabled];
   } else {
