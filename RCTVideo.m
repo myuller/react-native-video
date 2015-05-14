@@ -129,10 +129,15 @@ static NSString *const statusKeyPath = @"status";
   bool isAsset = [RCTConvert BOOL:[source objectForKey:@"isAsset"]];
   NSString *uri = [source objectForKey:@"uri"];
   NSString *type = [source objectForKey:@"type"];
-
-  NSURL *url = (isNetwork || isAsset) ?
-    [NSURL URLWithString:uri] :
-    [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:uri ofType:type]];
+    NSURL *url;
+    
+  if (isNetwork || isAsset) {
+    url = [NSURL URLWithString:uri];
+  } else if ([uri hasPrefix:@"file://"]) {
+    url = [[NSURL alloc] initFileURLWithPath:[uri substringFromIndex:7]];
+  } else {
+    url = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:uri ofType:type]];
+  }
 
   if (isAsset) {
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
